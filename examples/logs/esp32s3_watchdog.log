@@ -1,0 +1,4 @@
+E (12345) task_wdt: Task watchdog got triggered. The following tasks did not reset the watchdog in time:
+E (12345) task_wdt:  - IDLE0 (CPU 0)
+Backtrace: 0x42005555:0x3fcebd20 0x42006666:0x3fcebd40
+PC      : 0x42005555  A1      : 0x3fcebd20

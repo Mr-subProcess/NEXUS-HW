@@ -1,0 +1,7 @@
+{
+  "algorithm": "crc16_modbus",
+  "data_offset": 0,
+  "data_length": 6,
+  "checksum_offset": 6,
+  "byte_order": "little"
+}

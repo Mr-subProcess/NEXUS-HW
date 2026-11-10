@@ -1,0 +1,13 @@
+{
+  "input": "examples/corpus/crash-demo.bin",
+  "output": "examples/reports/crash-demo.min.bin",
+  "original_size": 36,
+  "minimized_size": 20,
+  "bytes_removed": 16,
+  "immutable_prefix": 2,
+  "oracle_trials": 10,
+  "crash_regex": "(?i)(Guru Meditation|HardFault|Hard Fault|AddressSanitizer|UndefinedBehaviorSanitizer|runtime error:|CRASH_CONFIRMED)",
+  "minimized_hex": "A5016F72652D43524153485F5441472D6E6F6973",
+  "reproduced_after_minimization": true,
+  "note": "A matching textual signature is an oracle contract, not proof of identical root cause. Review the target log and fault class."
+}

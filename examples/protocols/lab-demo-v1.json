@@ -1,0 +1,28 @@
+{
+  "schema": "nexus.protocol.v1",
+  "name": "NEXUS fictional read-only training fixture",
+  "link": "uart",
+  "profile": {
+    "ack": "06",
+    "nack": "15",
+    "device_error": "7F"
+  },
+  "commands": [
+    {
+      "name": "read_status",
+      "tag": "0x0010",
+      "classification": "documented_read_only",
+      "frame_hex": "10000000",
+      "immutable_prefix": 1,
+      "minimum_mutable_bytes": 1
+    },
+    {
+      "name": "read_identity",
+      "tag": "0x0011",
+      "classification": "documented_read_only",
+      "frame_hex": "11010000",
+      "immutable_prefix": 1,
+      "minimum_mutable_bytes": 1
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+NEXUS_DEBUG_CAPTURE,profile=synthetic,arch=synthetic-native-ELF-fixture,mode=offline-core,remote=,halt=0
+NEXUS_ELF_BUILD_ID=42f647634429185ef3189ad370ce915bf344551a
+NEXUS_ELF_SHA256=see-demo-target.elf
+TARGET_BUILD_ID=42f647634429185ef3189ad370ce915bf344551a
+NEXUS_CAPTURE_MODE=offline-core
+NEXUS_TARGET_ACTION=synthetic transcript; no target connected
+Program received signal SIGSEGV, Segmentation fault.
+pc 0x0000000000401106 0x0000000000401106
+sp 0x7fffffffdc80 0x7fffffffdc80
+rbp 0x7fffffffdca0 0x7fffffffdca0
+rax 0x0 0
+rdi 0x0 0
+rsi 0x4 4
+* 1 Thread 1 (LWP 4242)
+#0  0x0000000000401106 in parse_frame (payload=0x0, length=4) at /mnt/data/nexus-hw-v5-work/examples/debugger_fixture/demo_target.cpp:11
+#1  0x000000000040113e in main () at /mnt/data/nexus-hw-v5-work/examples/debugger_fixture/demo_target.cpp:18
+0x7fffffffdc80: 0x0000000000000000 0x000000000040113e 0x0000000000401106 0x0000000000000004

@@ -1,0 +1,21 @@
+{
+  "format": "NEXUS-HW coverage report",
+  "bitmap_capacity": 2048,
+  "records": 1,
+  "unique_edges_found": 3,
+  "runs": [
+    {
+      "run_id": 41,
+      "edges_in_run": 3,
+      "new_edges": 3,
+      "line": 1
+    }
+  ],
+  "new_edge_ids": [
+    1,
+    4,
+    7
+  ],
+  "total_instrumented_edges": 16,
+  "coverage_percent": 18.75
+}

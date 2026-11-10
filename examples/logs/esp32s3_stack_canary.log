@@ -1,0 +1,7 @@
+Guru Meditation Error: Core  0 panic'ed (Unhandled debug exception)
+Debug exception reason: Stack canary watchpoint triggered (nexus_worker)
+
+Backtrace: 0x42001234:0x3fcebd20 0x42004567:0x3fcebd40 0x40378abc:0x3fcebd70
+
+PC      : 0x42001234  PS      : 0x00060f30  A0      : 0x8200456a  A1      : 0x3fcebd20
+EXCCAUSE: 0x00000001  EXCVADDR: 0x00000000

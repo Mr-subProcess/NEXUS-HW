@@ -1,0 +1,4 @@
+CRASH_SUSPECTED,case=41,tag=0010,latency_us=20001,failed_heartbeats=2,trigger=10AA0000
+TARGET_LOG Guru Meditation Error: Core 0 panic'ed (LoadProhibited). Exception was unhandled.
+TARGET_LOG Backtrace: 0x42001234:0x3fcebd20 0x42004567:0x3fcebd40
+TARGET_LOG PC: 0x42001234 PS: 0x00060f30 EXCCAUSE: 0x0000001c EXCVADDR: 0x00000004

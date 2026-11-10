@@ -1,0 +1,98 @@
+{
+  "platform": "Generic GDB capture (synthetic-native-ELF-fixture)",
+  "fault_class": "invalid_memory_access",
+  "confidence": "medium",
+  "evidence": [
+    "Target-reported firmware build ID: 42f647634429185ef3189ad370ce915bf344551a",
+    "GDB/OpenOCD debugger transcript metadata is present",
+    "GDB stop reason: SIGSEGV \u2014 Segmentation fault.",
+    "2 direct sanitizer source location(s) extracted",
+    "2 code address(es) extracted for symbolication",
+    "Target log and ELF build IDs match"
+  ],
+  "recommendations": [
+    "Inspect the faulting instruction and effective address; classify null, out-of-range, stale-pointer and use-after-free hypotheses separately.",
+    "Check every protocol-derived length, index, pointer and integer conversion before dereference or copy.",
+    "Use the matching ELF plus DWARF, then preserve the minimized trigger as a regression test."
+  ],
+  "registers": {
+    "PC": "0x0000000000401106",
+    "SP": "0x7fffffffdc80"
+  },
+  "addresses": [
+    "0x0000000000401106",
+    "0x000000000040113e"
+  ],
+  "symbols": [
+    "0x0000000000401106: 0x0000000000401106: parse_frame(unsigned char const*, unsigned long) at /mnt/data/nexus-hw-v5-work/examples/debugger_fixture/demo_target.cpp:8",
+    "0x000000000040113e: 0x000000000040113e: main at /mnt/data/nexus-hw-v5-work/examples/debugger_fixture/demo_target.cpp:17"
+  ],
+  "direct_locations": [
+    "/mnt/data/nexus-hw-v5-work/examples/debugger_fixture/demo_target.cpp:11",
+    "/mnt/data/nexus-hw-v5-work/examples/debugger_fixture/demo_target.cpp:18"
+  ],
+  "nexus_event": {},
+  "limitations": [
+    "No architecture fault-status register was present; root-cause classification is based on log text only.",
+    "A source location is only trustworthy when symbolicated against the exact ELF matching the flashed firmware."
+  ],
+  "elf_metadata": [
+    "Class:                             ELF64",
+    "Data:                              2's complement, little endian",
+    "Machine:                           Advanced Micro Devices X86-64",
+    "Entry point address:               0x401020",
+    "ELF Build ID: 42f647634429185ef3189ad370ce915bf344551a",
+    "SECTION [10] .init             PROGBITS        0000000000401000 001000 000017 00  AX  0   0  4",
+    "SECTION [11] .text             PROGBITS        0000000000401020 001020 000141 00  AX  0   0 16",
+    "SECTION [13] .rodata           PROGBITS        0000000000402000 002000 000004 04  AM  0   0  4",
+    "SECTION [17] .init_array       INIT_ARRAY      0000000000403e38 002e38 000008 08  WA  0   0  8",
+    "SECTION [22] .data             PROGBITS        0000000000404000 003000 000010 00  WA  0   0  8",
+    "SECTION [23] .bss              NOBITS          0000000000404010 003010 000008 00  WA  0   0  1",
+    "SEGMENT LOAD           0x000000 0x0000000000400000 0x0000000000400000 0x0004a8 0x0004a8 R   0x1000",
+    "SEGMENT LOAD           0x001000 0x0000000000401000 0x0000000000401000 0x00016d 0x00016d R E 0x1000",
+    "SEGMENT LOAD           0x002000 0x0000000000402000 0x0000000000402000 0x0000ec 0x0000ec R   0x1000",
+    "SEGMENT LOAD           0x002e38 0x0000000000403e38 0x0000000000403e38 0x0001d8 0x0001e0 RW  0x1000"
+  ],
+  "disassembly": [
+    "===== Disassembly around 0x0000000000401106 =====\nexamples/debugger_fixture/demo_target.elf:\tfile format elf64-x86-64\n00000000004010d0 <__do_global_dtors_aux>:\n  4010ee: c3                           \tretq\n  4010ef: 90                           \tnop\n  4010f0: c3                           \tretq\n  4010f1: 66 66 2e 0f 1f 84 00 00 00 00 00     \tnopw\t%cs:(%rax,%rax)\n  4010fc: 0f 1f 40 00                  \tnopl\t(%rax)\n0000000000401100 <frame_dummy>:\n  401100: f3 0f 1e fa                  \tendbr64\n  401104: eb 8a                        \tjmp\t0x401090 <register_tm_clones>\n0000000000401106 <parse_frame(unsigned char const*, unsigned long)>:\n  401106: 55                           \tpushq\t%rbp\n  401107: 48 89 e5                     \tmovq\t%rsp, %rbp\n  40110a: 48 89 7d e8                  \tmovq\t%rdi, -0x18(%rbp)\n  40110e: 48 89 75 e0                  \tmovq\t%rsi, -0x20(%rbp)\n  401112: 48 83 7d e0 40               \tcmpq\t$0x40, -0x20(%rbp)\n  401117: 76 07                        \tjbe\t0x401120 <parse_frame(unsigned char const*, unsigned long)+0x1a>\n  401119: b8 ff ff ff ff               \tmovl\t$0xffffffff, %eax       # imm = 0xFFFFFFFF",
+    "===== Disassembly around 0x000000000040113e =====\nexamples/debugger_fixture/demo_target.elf:\tfile format elf64-x86-64\n0000000000401106 <parse_frame(unsigned char const*, unsigned long)>:\n  401126: 00 0f                        \taddb\t%cl, (%rdi)\n  401128: b6 c0                        \tmovb\t$-0x40, %dh\n  40112a: 89 45 fc                     \tmovl\t%eax, -0x4(%rbp)\n  40112d: 48 8b 45 e0                  \tmovq\t-0x20(%rbp), %rax\n  401131: 89 45 f8                     \tmovl\t%eax, -0x8(%rbp)\n  401134: 8b 55 fc                     \tmovl\t-0x4(%rbp), %edx\n  401137: 8b 45 f8                     \tmovl\t-0x8(%rbp), %eax\n  40113a: 01 d0                        \taddl\t%edx, %eax\n  40113c: 5d                           \tpopq\t%rbp\n  40113d: c3                           \tretq\n000000000040113e <main>:\n  40113e: 55                           \tpushq\t%rbp\n  40113f: 48 89 e5                     \tmovq\t%rsp, %rbp\n  401142: 48 83 ec 10                  \tsubq\t$0x10, %rsp\n  401146: c7 45 fc 41 42 43 44         \tmovl\t$0x44434241, -0x4(%rbp) # imm = 0x44434241\n  40114d: 48 8d 45 fc                  \tleaq\t-0x4(%rbp), %rax\n  401151: be 04 00 00 00               \tmovl\t$0x4, %esi"
+  ],
+  "map_evidence": [
+    "L192:  .text          0x0000000000401060       0xa6 /usr/lib/gcc/x86_64-linux-gnu/14/crtbegin.o",
+    "L193:  .text          0x0000000000401106       0x5b /tmp/ccabWcOe.o",
+    "L194:                 0x0000000000401106                parse_frame(unsigned char const*, unsigned long)",
+    "L195:                 0x000000000040113e                main",
+    "L196:  .text          0x0000000000401161        0x0 /usr/lib/gcc/x86_64-linux-gnu/14/crtend.o"
+  ],
+  "coverage_summary": {},
+  "stack_dump": [
+    "0x7fffffffdc80: 0x0000000000000000 0x000000000040113e 0x0000000000401106 0x0000000000000004"
+  ],
+  "source_context": [
+    "/mnt/data/nexus-hw-v5-work/examples/debugger_fixture/demo_target.cpp:8 (lines 3-13)\n      3 | \n      4 | // Synthetic source fixture for demonstrating source mapping in the NEXUS HTML\n      5 | // workbench. The capture log is fabricated; this program is not executed.\n      6 | // The unchecked dereference illustrates the kind of parser boundary a report\n      7 | // might point to after a real target-side fault has been independently captured.\n>     8 | __attribute__((noinline)) int parse_frame(const std::uint8_t* payload, std::size_t length) {\n      9 |     if (length > 64U) {\n     10 |         return -1;\n     11 |     }\n     12 |     const volatile std::uint32_t first = payload[0]; // synthetic fault-site example\n     13 |     const volatile std::uint32_t size = static_cast<std::uint32_t>(length);",
+    "/mnt/data/nexus-hw-v5-work/examples/debugger_fixture/demo_target.cpp:17 (lines 12-20)\n     12 |     const volatile std::uint32_t first = payload[0]; // synthetic fault-site example\n     13 |     const volatile std::uint32_t size = static_cast<std::uint32_t>(length);\n     14 |     return static_cast<int>(first + size);\n     15 | }\n     16 | \n>    17 | int main() {\n     18 |     const std::uint8_t sample[]{0x41U, 0x42U, 0x43U, 0x44U};\n     19 |     return parse_frame(sample, sizeof(sample));\n     20 | }",
+    "/mnt/data/nexus-hw-v5-work/examples/debugger_fixture/demo_target.cpp:11 (lines 6-16)\n      6 | // The unchecked dereference illustrates the kind of parser boundary a report\n      7 | // might point to after a real target-side fault has been independently captured.\n      8 | __attribute__((noinline)) int parse_frame(const std::uint8_t* payload, std::size_t length) {\n      9 |     if (length > 64U) {\n     10 |         return -1;\n>    11 |     }\n     12 |     const volatile std::uint32_t first = payload[0]; // synthetic fault-site example\n     13 |     const volatile std::uint32_t size = static_cast<std::uint32_t>(length);\n     14 |     return static_cast<int>(first + size);\n     15 | }\n     16 | ",
+    "/mnt/data/nexus-hw-v5-work/examples/debugger_fixture/demo_target.cpp:18 (lines 13-20)\n     13 |     const volatile std::uint32_t size = static_cast<std::uint32_t>(length);\n     14 |     return static_cast<int>(first + size);\n     15 | }\n     16 | \n     17 | int main() {\n>    18 |     const std::uint8_t sample[]{0x41U, 0x42U, 0x43U, 0x44U};\n     19 |     return parse_frame(sample, sizeof(sample));\n     20 | }"
+  ],
+  "execution_context": [
+    "* 1 Thread 1 (LWP 4242)"
+  ],
+  "build_id": "42f647634429185ef3189ad370ce915bf344551a",
+  "elf_build_id": "42f647634429185ef3189ad370ce915bf344551a",
+  "build_id_match": true,
+  "debugger_metadata": [
+    "supplied_elf_build_id=42f647634429185ef3189ad370ce915bf344551a",
+    "profile=synthetic",
+    "arch=synthetic-native-ELF-fixture",
+    "mode=offline-core",
+    "remote=",
+    "halt=0",
+    "capture_mode=offline-core",
+    "target_action=synthetic transcript; no target connected"
+  ],
+  "debugger_frames": [
+    "* 1 Thread 1 (LWP 4242)",
+    "#0  0x0000000000401106 in parse_frame (payload=0x0, length=4) at /mnt/data/nexus-hw-v5-work/examples/debugger_fixture/demo_target.cpp:11",
+    "#1  0x000000000040113e in main () at /mnt/data/nexus-hw-v5-work/examples/debugger_fixture/demo_target.cpp:18"
+  ]
+}
